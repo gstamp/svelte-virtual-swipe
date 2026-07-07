@@ -8,5 +8,6 @@
 		"check": "pnpm --filter=@demo/app check",
 		"test": "pnpm --filter=svelte-virtual-swipe test",
 		"demo:check": "pnpm --filter=@demo/app check"
-	}
+	},
+	"version": "0.0.1"
 }
