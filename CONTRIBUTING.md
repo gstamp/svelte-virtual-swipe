@@ -10,7 +10,7 @@
 
 ```bash
 git clone <your-fork>
-cd svelte-swipe
+ cd svelte-virtual-swipe
 pnpm install
 ```
 
@@ -37,14 +37,14 @@ Starts the demo app at `http://localhost:5173`. Changes to `packages/swipe/src/l
 Run a command scoped to a single package:
 
 ```bash
-pnpm --filter=svelte-swipe <cmd>
+ pnpm --filter=svelte-virtual-swipe <cmd>
 pnpm --filter=@demo/app <cmd>
 ```
 
 ## Project structure
 
 ```
-svelte-swipe/
+ svelte-virtual-swipe/
 ├── packages/swipe/          # The published npm package
 │   ├── src/lib/
 │   │   ├── Swipe.svelte     # Main component
@@ -69,7 +69,7 @@ Tests live in `packages/swipe/tests/`. They use vitest + happy-dom and mount the
 ```bash
 pnpm test                # all tests
 pnpm test:watch          # watch mode
-pnpm --filter=svelte-swipe test -- -t "specific test name"  # single test
+ pnpm --filter=svelte-virtual-swipe test -- -t "specific test name"  # single test
 ```
 
 Write tests for:
@@ -142,10 +142,10 @@ The current major version is **0** (initial development). Breaking changes may l
 
 ### npm access
 
-You need npm credentials with publish access to the `svelte-swipe` package:
+ You need npm credentials with publish access to the `svelte-virtual-swipe` package:
 
 ```bash
 npm login
 ```
 
-The package name is `svelte-swipe` on the public registry.
+ The package name is `svelte-virtual-swipe` on the public registry.

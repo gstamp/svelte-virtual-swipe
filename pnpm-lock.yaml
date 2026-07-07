@@ -10,7 +10,7 @@ importers:
 
   apps/demo:
     dependencies:
-      svelte-swipe:
+      svelte-virtual-swipe:
         specifier: workspace:*
         version: link:../../packages/swipe
     devDependencies:

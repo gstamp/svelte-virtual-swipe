@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Swipe from 'svelte-swipe';
+	import Swipe from 'svelte-virtual-swipe';
 
 	const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'] as const;
 	const labels = ['Coral', 'Teal', 'Blue', 'Sage'] as const;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Swipe from 'svelte-swipe';
+	import Swipe from 'svelte-virtual-swipe';
 
 	let currentPage = $state(0);
 	let touchOnly = $state(true);

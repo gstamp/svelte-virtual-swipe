@@ -1,6 +1,6 @@
 {
-	"name": "svelte-swipe",
-	"version": "0.1.0",
+	"name": "svelte-virtual-swipe",
+	"version": "0.1.1",
 	"description": "Touch-driven horizontal page flip component for Svelte 5",
 	"type": "module",
 	"svelte": "./dist/Swipe.svelte",
@@ -37,7 +37,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/your-org/svelte-swipe"
+		"url": "https://github.com/gstamp/svelte-virtual-swipe.git"
 	},
 	"keywords": [
 		"svelte",

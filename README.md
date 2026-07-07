@@ -1,4 +1,4 @@
-# svelte-swipe
+ # svelte-virtual-swipe
 
 Touch-driven horizontal page flip component for Svelte 5.
 
@@ -7,9 +7,9 @@ Swipe gestures with no dependencies, SSR support, and configurable thresholds. B
 ## Install
 
 ```sh
-npm install svelte-swipe
-pnpm add svelte-swipe
-yarn add svelte-swipe
+ npm install svelte-virtual-swipe
+ pnpm add svelte-virtual-swipe
+ yarn add svelte-virtual-swipe
 ```
 
 Requires `svelte@^5.0.0` as a peer dependency.
@@ -18,7 +18,7 @@ Requires `svelte@^5.0.0` as a peer dependency.
 
 ```svelte
 <script lang="ts">
-	import Swipe from 'svelte-swipe';
+ 	import Swipe from 'svelte-virtual-swipe';
 
 	const totalPages = 4;
 	let currentPage = $state(0);
@@ -79,7 +79,7 @@ Horizontal scroll containers inside pages are also detected — swiping over the
 
 ```sh
 git clone <repo>
-cd svelte-swipe-poc
+ cd svelte-virtual-swipe
 pnpm install
 pnpm build
 pnpm dev

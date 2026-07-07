@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Swipe from 'svelte-swipe';
+	import Swipe from 'svelte-virtual-swipe';
 
 	const pages = [
 		{ emoji: '🌊', title: 'Swipe Zone', color: '#4ecdc4', text: 'Swipe inside the card — works like the Basic demo.' },

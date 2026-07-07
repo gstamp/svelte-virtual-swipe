@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Swipe from 'svelte-swipe';
+	import Swipe from 'svelte-virtual-swipe';
 
 	const TOTAL_PAGES = 200;
 	let currentPage = $state(0);
