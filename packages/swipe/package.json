@@ -1,0 +1,49 @@
+{
+	"name": "svelte-swipe",
+	"version": "0.1.0",
+	"description": "Touch-driven horizontal page flip component for Svelte 5",
+	"type": "module",
+	"svelte": "./dist/Swipe.svelte",
+	"main": "./dist/Swipe.svelte",
+	"types": "./dist/Swipe.svelte.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/Swipe.svelte.d.ts",
+			"svelte": "./dist/Swipe.svelte",
+			"default": "./dist/Swipe.svelte"
+		}
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*"
+	],
+	"scripts": {
+		"build": "svelte-package",
+		"prepublishOnly": "svelte-package",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@sveltejs/package": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"svelte": "^5.56.1",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.0",
+		"vitest": "^3.0.0",
+		"happy-dom": "^15.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/your-org/svelte-swipe"
+	},
+	"keywords": [
+		"svelte",
+		"swipe",
+		"touch",
+		"carousel"
+	],
+	"license": "MIT"
+}

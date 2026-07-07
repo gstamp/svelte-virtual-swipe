@@ -1,0 +1,12 @@
+{
+	"name": "svelte-swipe-monorepo",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm --filter=@demo/app dev",
+		"build": "pnpm --filter=svelte-swipe build",
+		"check": "pnpm --filter=@demo/app check",
+		"test": "pnpm --filter=svelte-swipe test",
+		"demo:check": "pnpm --filter=@demo/app check"
+	}
+}
