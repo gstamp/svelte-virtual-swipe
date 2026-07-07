@@ -1,6 +1,6 @@
 {
 	"name": "svelte-virtual-swipe",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Touch-driven horizontal page flip component for Svelte 5",
 	"type": "module",
 	"svelte": "./dist/Swipe.svelte",
