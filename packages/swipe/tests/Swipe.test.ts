@@ -459,4 +459,125 @@ describe('Swipe', () => {
 			expect(activeDotIndex()).toBe(0);
 		});
 	});
+
+	// -----------------------------------------------------------------------
+	// swipeInteractiveTargets
+	// -----------------------------------------------------------------------
+
+	describe('swipeInteractiveTargets', () => {
+		it('default behavior still ignores interactive targets like role="button"', async () => {
+			mount(SwipeTestWrapper, {
+				target: document.body,
+				props: { totalPages: 3, touchOnly: false },
+			});
+			await tick();
+
+			const target = document.querySelector<HTMLElement>('.test-page')!;
+			target.setAttribute('role', 'button');
+
+			await fireSwipe(target, 200, 100, 50, 100);
+
+			expect(activeDotIndex()).toBe(0);
+		});
+
+		it('allowed interactive target can start swipe', async () => {
+			mount(SwipeTestWrapper, {
+				target: document.body,
+				props: {
+					totalPages: 3,
+					touchOnly: false,
+					swipeInteractiveTargets: '[data-reader-word-trigger="true"]',
+				},
+			});
+			await tick();
+
+			const target = document.querySelector<HTMLElement>('.test-page')!;
+			target.setAttribute('role', 'button');
+			target.setAttribute('data-reader-word-trigger', 'true');
+
+			await fireSwipe(target, 200, 100, 50, 100);
+
+			expect(activeDotIndex()).toBe(1);
+		});
+
+		it('tap on allowed interactive target is not blocked', async () => {
+			mount(SwipeTestWrapper, {
+				target: document.body,
+				props: {
+					totalPages: 3,
+					touchOnly: false,
+					swipeInteractiveTargets: '[data-reader-word-trigger="true"]',
+				},
+			});
+			await tick();
+
+			const target = document.querySelector<HTMLElement>('.test-page')!;
+			target.setAttribute('role', 'button');
+			target.setAttribute('data-reader-word-trigger', 'true');
+
+			let clickCount = 0;
+			target.addEventListener('click', () => { clickCount++; });
+
+			// Tap: pointerdown + pointerup (no horizontal move)
+			dispatchPointerEvent(target, 'pointerdown', 15, 15);
+			dispatchPointerEvent(target, 'pointerup', 15, 15);
+			await tick();
+
+			// Dispatch click
+			target.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			await tick();
+
+			expect(clickCount).toBe(1);
+			expect(activeDotIndex()).toBe(0);
+		});
+
+		it('swipe on allowed interactive target blocks follow-up click', async () => {
+			mount(SwipeTestWrapper, {
+				target: document.body,
+				props: {
+					totalPages: 3,
+					touchOnly: false,
+					swipeInteractiveTargets: '[data-reader-word-trigger="true"]',
+				},
+			});
+			await tick();
+
+			const target = document.querySelector<HTMLElement>('.test-page')!;
+			target.setAttribute('role', 'button');
+			target.setAttribute('data-reader-word-trigger', 'true');
+
+			let clickCount = 0;
+			target.addEventListener('click', () => { clickCount++; });
+
+			await fireSwipe(target, 200, 100, 50, 100);
+
+			// Dispatch click after swipe — should be blocked
+			target.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			await tick();
+
+			expect(activeDotIndex()).toBe(1);
+			expect(clickCount).toBe(0);
+		});
+
+		it('data-swipe-ignore wins over swipeInteractiveTargets', async () => {
+			mount(SwipeTestWrapper, {
+				target: document.body,
+				props: {
+					totalPages: 3,
+					touchOnly: false,
+					swipeInteractiveTargets: '[data-reader-word-trigger="true"]',
+				},
+			});
+			await tick();
+
+			const target = document.querySelector<HTMLElement>('.test-page')!;
+			target.setAttribute('role', 'button');
+			target.setAttribute('data-reader-word-trigger', 'true');
+			target.setAttribute('data-swipe-ignore', '');
+
+			await fireSwipe(target, 200, 100, 50, 100);
+
+			expect(activeDotIndex()).toBe(0);
+		});
+	});
 });

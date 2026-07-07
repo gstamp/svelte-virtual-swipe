@@ -53,6 +53,7 @@ The component renders a static fallback during SSR — pages render stacked vert
 | `globalGestures` | `boolean` | `false` | Capture swipe gestures from the entire document. |
 | `touchOnly` | `boolean` | `true` | Only respond to touch input (ignore mouse/pen). |
 | `debug` | `boolean` | `false` | Enable debug console logging. |
+| `swipeInteractiveTargets` | `string` | `''` | CSS selector for interactive descendants that should be allowed to start a swipe. See [Interactive element handling](#interactive-element-handling). |
 
 ### Styling
 
@@ -71,7 +72,32 @@ To override, increase selector specificity (e.g., `:global(.swipe-dot)`) or wrap
 
 ### Interactive element handling
 
-Elements inside swipe pages that should receive clicks/swipes normally (buttons, links, inputs, selects, `[data-swipe-ignore]`) are automatically excluded from swipe initiation.
+Interactive elements inside swipe pages (buttons, links, inputs, selects, `[role="button"]`, `[data-swipe-ignore]`) are automatically excluded from swipe initiation so controls remain usable.
+
+If your content has normally-interactive elements that should still allow horizontal swipe gestures to start (e.g. reader words with `role="button"`), pass the `swipeInteractiveTargets` prop with a CSS selector matching those elements:
+
+```svelte
+<script lang="ts">
+	import Swipe from 'svelte-virtual-swipe';
+
+	let currentPage = $state(0);
+</script>
+
+<Swipe
+	totalPages={pages.length}
+	bind:currentPage
+	globalGestures
+	swipeInteractiveTargets='[data-reader-word-trigger="true"]'
+>
+	{#snippet pageContent(index)}
+		<ReaderPage page={pages[index]} />
+	{/snippet}
+</Swipe>
+```
+
+A tap still activates the element; a horizontal drag past the threshold pages the swipe component and suppresses the follow-up click.
+
+Note: `[data-swipe-ignore]` takes priority — any element with that attribute remains unable to start a swipe regardless of `swipeInteractiveTargets`, giving you a hard per-element escape hatch.
 
 Horizontal scroll containers inside pages are also detected — swiping over them scrolls the content rather than flipping the page.
 
@@ -79,7 +105,7 @@ Horizontal scroll containers inside pages are also detected — swiping over the
 
 ```sh
 git clone <repo>
- cd svelte-virtual-swipe
+cd svelte-virtual-swipe
 pnpm install
 pnpm build
 pnpm dev

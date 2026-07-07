@@ -11,7 +11,8 @@
 		showIndicator = true,
 		globalGestures = false,
 		touchOnly = true,
-		debug = false
+		debug = false,
+		swipeInteractiveTargets = ''
 	}: SwipeProps = $props();
 
 	// ── SSR guard ──────────────────────────────────────────────
@@ -87,13 +88,18 @@
 		'[role="spinbutton"]',
 		'[role="switch"]',
 		'[role="tab"]',
-		'[data-swipe-ignore]'
 	].join(',');
-
-	function isInteractiveTarget(target: EventTarget | null): boolean {
-		return target instanceof Element && target.closest(interactiveSelector) !== null;
+	function isAllowedInteractiveSwipeTarget(target: EventTarget | null): boolean {
+		if (!swipeInteractiveTargets) return false;
+		return target instanceof Element && target.closest(swipeInteractiveTargets) !== null;
 	}
 
+	function isInteractiveTarget(target: EventTarget | null): boolean {
+		if (!(target instanceof Element)) return false;
+		if (target.closest('[data-swipe-ignore]')) return true;
+		if (isAllowedInteractiveSwipeTarget(target)) return false;
+		return target.closest(interactiveSelector) !== null;
+	}
 	function isHorizontallyScrollable(element: Element): boolean {
 		if (!(element instanceof HTMLElement)) return false;
 		const style = window.getComputedStyle(element);
@@ -250,10 +256,16 @@
 	}
 
 	// ── Click blocker (prevents click after swipe) ─────────────
-	function blockNextClick() {
+	function blockNextClick(scope: 'viewport' | 'document' = 'viewport') {
 		justSwiped = true;
 		const handler = (e: MouseEvent) => {
-			if (viewportEl?.contains(e.target as Node)) {
+			// If the component has been unmounted, clean up without blocking.
+			if (!viewportEl?.isConnected) {
+				document.removeEventListener('click', handler, true);
+				justSwiped = false;
+				return;
+			}
+			if (scope === 'document' || viewportEl?.contains(e.target as Node)) {
 				e.stopPropagation();
 				e.preventDefault();
 			}
@@ -336,7 +348,7 @@
 				} else if (dx > swipeThreshold && currentPage > 0) {
 					currentPage--;
 				}
-				blockNextClick();
+				blockNextClick('document');
 			}
 
 			dragOffset = 0;

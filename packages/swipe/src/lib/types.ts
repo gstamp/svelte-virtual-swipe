@@ -20,4 +20,15 @@ export type SwipeProps = {
 	/** Only respond to touch input (ignore mouse/pen). Default true. */
 	touchOnly?: boolean;
 	/** Enable debug console logging. Default false. */
+	debug?: boolean;
+	/**
+	 * CSS selector for interactive descendants that should be allowed to start a swipe.
+	 *
+	 * By default, interactive descendants such as buttons, links, inputs, and role="button"
+	 * are ignored so normal controls keep working. Use this only for controls where a
+	 * horizontal drag should page-swipe while a tap/click should still activate the control.
+	 *
+	 * Example: `'[data-reader-word-trigger="true"]'`
+	 */
+	swipeInteractiveTargets?: string;
 };

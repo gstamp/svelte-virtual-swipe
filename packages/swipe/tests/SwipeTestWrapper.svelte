@@ -6,6 +6,7 @@
 		currentPage = $bindable(0),
 		globalGestures = false,
 		touchOnly = false,
+		swipeInteractiveTargets = '',
 		showLocalButton = false,
 		showExternalButton = false,
 		showSelectableText = false,
@@ -15,6 +16,7 @@
 		currentPage?: number;
 		globalGestures?: boolean;
 		touchOnly?: boolean;
+		swipeInteractiveTargets?: string;
 		showLocalButton?: boolean;
 		showExternalButton?: boolean;
 		showSelectableText?: boolean;
@@ -36,7 +38,7 @@
 		</button>
 	{/if}
 
-	<Swipe {totalPages} bind:currentPage {globalGestures} {touchOnly}>
+	<Swipe {totalPages} bind:currentPage {globalGestures} {touchOnly} {swipeInteractiveTargets}>
 		{#snippet pageContent(idx)}
 			<div class="test-page" data-page={idx}>
 				Page {idx + 1}
