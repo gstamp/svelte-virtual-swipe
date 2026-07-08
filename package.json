@@ -7,7 +7,8 @@
 		"build": "pnpm --filter=svelte-virtual-swipe build",
 		"check": "pnpm --filter=@demo/app check",
 		"test": "pnpm --filter=svelte-virtual-swipe test",
-		"demo:check": "pnpm --filter=@demo/app check"
+		"demo:check": "pnpm --filter=@demo/app check",
+		"release": "bash scripts/release.sh"
 	},
 	"version": "0.0.1"
 }
